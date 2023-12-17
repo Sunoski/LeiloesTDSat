@@ -51,6 +51,28 @@ public class ProdutosDAO {
         }
     }
     
+    public ArrayList<ProdutosDTO> listarProdutosVendidos(){
+        try {
+            Statement st;
+            conn = new conectaDAO().connectDB(); // Conecta na DB
+            st = conn.createStatement();
+            String txt;
+            txt = String.format("select * from produtos where Status='Vendido'");
+            ResultSet rs = st.executeQuery(txt);
+            while (rs.next()) {
+                ProdutosDTO produto = new ProdutosDTO();
+                produto.setId(rs.getInt("id"));
+                produto.setNome(rs.getString("nome"));
+                produto.setValor(Integer.valueOf(rs.getString("valor")));
+                produto.setStatus(rs.getString("status"));
+                listagem.add(produto);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Sintaxe de comando invalida ");
+        }
+        return listagem;
+    }
+    
     public ArrayList<ProdutosDTO> listarProdutos(){
         try {
             Statement st;
