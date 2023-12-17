@@ -38,6 +38,18 @@ public class ProdutosDAO {
             System.out.println("Sintaxe de comando invalida ");
         }
     }
+    public void venderProduto(int id) {
+        try {
+            Statement st;
+            conn = new conectaDAO().connectDB(); // Conecta na DB
+            st = conn.createStatement();
+            String txt;
+            txt = String.format("update produtos set Status='Vendido' where id=%s",id);
+            st.executeUpdate(txt);
+        } catch (SQLException ex) {
+            System.out.println("Sintaxe de comando invalida ");
+        }
+    }
     
     public ArrayList<ProdutosDTO> listarProdutos(){
         try {
